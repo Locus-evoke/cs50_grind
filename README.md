@@ -1,1 +1,1 @@
-just grinding the cs50 python course on edx.com.
+Grinding the cs50 python course on edx.org.
