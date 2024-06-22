@@ -1,4 +1,3 @@
-
 i = {
     "January": 1,
     "February": 2,
@@ -15,43 +14,38 @@ i = {
 }
 
 while True:
-    # try:
-        user_inp = input('Date: ').strip()
-        if user_inp.__contains__("/"):
-            a, *_ = user_inp
-            if not a.isdigit():
-                continue
-            
-        user_inp = user_inp.replace('/',' ')
-        MM,DD,YYYY = user_inp.split(' ')
-        # print(DD)
-        DD = DD.zfill(2)
-        # print(DD)
+    user_inp = input('Date: ').strip()
 
-        if len(DD) == 3:
-            if not user_inp.__contains__('/'):
-                if not DD.endswith(','):
-                    continue
-        if not int(DD[0:2]) <= 31:
-            continue
-            
-        if MM.isdigit():
-            if int(MM) <= 12 and int(MM) > 0:
-                MM = str(int(MM)).zfill(2)
-                print(f"{YYYY}-{MM}-{DD}")
-            else:
-                continue
-        elif isinstance(MM, str):
-            MM = MM.title()
-            if MM in i:        
-                MM = MM.replace(',','')    
-                MM = i.get(MM)
+    if '/' in user_inp:
+        try:
+            MM, DD, YYYY = user_inp.split('/')
+            MM, DD, YYYY = int(MM), int(DD), int(YYYY)
+
+            if 1 <= MM <= 12 and 1 <= DD <= 31:
                 MM = str(MM).zfill(2)
+                DD = str(DD).zfill(2)
                 print(f"{YYYY}-{MM}-{DD}")
-            else:
-                continue
-        else:
+                break
+        except ValueError:
             continue
-        break
-    # except ValueError:
-        # continue
+
+    elif ',' in user_inp:
+        try:
+            month_day, YYYY = user_inp.split(',')
+            month_day = month_day.strip()
+            YYYY = int(YYYY.strip())
+            month_name, DD = month_day.rsplit(' ', 1)
+            a = 'a'.split()
+
+            month_name = month_name.title()
+            if month_name in i and DD.isdigit():
+                MM = i[month_name]
+                DD = int(DD)
+
+                if (1 <= DD <= 31):
+                    MM = str(MM).zfill(2)
+                    DD = str(DD).zfill(2)
+                    print(f"{YYYY}-{MM}-{DD}")
+                    break
+        except ValueError:
+            continue
