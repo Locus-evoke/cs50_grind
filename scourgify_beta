@@ -1,0 +1,26 @@
+import csv
+from tabulate import tabulate
+
+
+niggas = []
+first_names = []
+last_names = []
+
+with open('before.csv') as f:
+
+    reader = csv.DictReader(f)
+    for row in reader:
+        last_name,first_name = str(row['name']).split(',')
+        
+        first_name = first_name.strip()
+        last_name = last_name.strip()
+        
+        print(first_name, last_name)
+        niggas.append({'name': first_name, 'house': row['house']})
+    
+    print(tabulate(niggas, headers= 'firstrow', tablefmt='fancy_grid'))
+    
+    
+    
+    
+    # print('\n\n\n\n\n',reader)
